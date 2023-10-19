@@ -41,7 +41,7 @@
 import TheDropdownApps from '@/TheHeader/TheDropdownApps/TheDropdownApps.vue'
 import TheDropdownSettings from '@/TheHeader/TheDropdownSettings/TheDropdownSettings.vue'
 import LogoMain from '@/TheHeader/LogoMain.vue'
-import ButtonLogin from '@/TheHeader/ButtonLogin/ButtonLogin.vue'
+import ButtonLogin from '@/ButtonLogin/ButtonLogin.vue'
 import TheSearch from '@/TheHeader/TheSearch/TheSearch.vue'
 import BaseIcon from '@/Icon/BaseIcon.vue'
 </script>
