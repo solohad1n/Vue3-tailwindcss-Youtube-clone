@@ -10,14 +10,13 @@
       <div v-html="summary">
       </div>
     </div>
-    <button class="-mt-1 ml-auto p-1 opacity-0 group-hover:opacity-100 text-gray-500 hover:text-gray-700 focus:outline-none">
-      <BaseIcon name="dotsVertical"/>
-    </button>
+    <VideoItemDropdown/>
   </div>
 </template>
 
 <script setup>
 import BaseIcon from '@/Icon/BaseIcon.vue'
+import VideoItemDropdown from './VideoItemDropdown.vue'
 import { computed } from 'vue'
 
 const props = defineProps(['index'])

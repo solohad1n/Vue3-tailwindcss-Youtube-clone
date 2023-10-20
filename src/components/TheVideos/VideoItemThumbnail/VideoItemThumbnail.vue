@@ -16,7 +16,6 @@
 </template>
 
 <script setup>
-import BaseIcon from '@/Icon/BaseIcon.vue'
 import VideoItemThumbnailButton from './VideoItemThumbnailButton.vue'
 
 const props = defineProps(['index'])
