@@ -1,8 +1,8 @@
 <template>
-  <TheHeader />
+  <TheHeader @openMobileSidebar="openMobileSidebar"/>
   <TheSidebarSmall />
   <TheSidebar />
-  <TheSidebarMobile />
+  <TheSidebarMobile :isOpen="isMobileSidebarOpen" @close="closeSidebarMobile"/>
   <TheCategories />
   <TheVideos />
 </template>
@@ -14,4 +14,15 @@ import TheSidebar from './components/TheSidebar/TheSidebar.vue'
 import TheSidebarMobile from './components/TheSidebarMobile/TheSidebarMobile.vue'
 import TheCategories from './components/TheCategories/TheCategories.vue'
 import TheVideos from './components/TheVideos/TheVideos.vue'
+import { ref } from 'vue'
+
+const isMobileSidebarOpen = ref(false)
+
+const openMobileSidebar = () => {
+  isMobileSidebarOpen.value = true
+}
+
+const closeSidebarMobile = () => {
+  isMobileSidebarOpen.value = false
+}
 </script>
