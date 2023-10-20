@@ -1,6 +1,6 @@
 <template>
   <aside
-    class="min-h-screen hidden md:block xl:hidden overflow-auto fixed top-0 pt-14 bg-white z-20"
+    :class="classes"
   >
     <section>
       <ul>
@@ -105,3 +105,22 @@
     </section>
   </aside>
 </template>
+<script setup>
+import { computed } from "vue"
+
+const props = defineProps({
+  isOpen: Boolean
+})
+
+const classes = computed(() => {
+  return [
+    props.isOpen ? 'md:block' : 'hidden',
+      'min-h-screen',
+      'overflow-auto',
+      'fixed',
+      'top-0',
+      'pt-14',
+      'bg-white',
+      'z-20']
+})
+</script>
