@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import VideoItemThumbnail from '@/TheVideos/VideoItemThumbnail.vue'
+import VideoItemThumbnail from '@/TheVideos/VideoItemThumbnail/VideoItemThumbnail.vue'
 import VideoItemInfo from '@/TheVideos/VideoItemInfo.vue'
 
 import { defineProps } from 'vue';
