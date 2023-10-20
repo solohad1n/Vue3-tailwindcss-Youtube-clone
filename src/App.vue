@@ -22,12 +22,6 @@ const isMobileSidebarOpen = ref(false)
 const isSidebarOpen = ref(false)
 
 onMounted(() => {
-  if(window.innerWidth >= 768 && window.innerWidth < 1280) {
-    isCompactSidebarActive.value = true
-  }
-  if(window.innerWidth >= 1280) {
-    isCompactSidebarActive.value = false
-  }
 
   onResize()
 
@@ -61,6 +55,7 @@ const onResize = () => {
   } else {
     isCompactSidebarOpen.value = isCompactSidebarActive.value
     isSidebarOpen.value = !isCompactSidebarActive.value
+    isMobileSidebarOpen.value = false
   }
 }
 

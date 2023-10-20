@@ -12,8 +12,11 @@
       leave-to-class="transform opacity-0 scale-95"
     >
       <div
-        class="absolute top-9 -right-full sm:right-0 bg-white w-72 border border-t-0"
+        class="absolute top-9 -right-full sm:right-0 bg-white w-72 border border-t-0 outline-none"
         v-show="isOpen"
+        @keydown.esc="isOpen = false"
+        tabindex="-1"
+        ref="dropdown"
       >
         <section class="py-2 border-b">
           <ul>
@@ -42,16 +45,25 @@
 <script setup>
 import DropdownSettingsListItem from './DropdownSettingsListItem.vue';
 import BaseIcon from '@/Icon/BaseIcon.vue'
-import { onMounted, ref } from 'vue';
+import { nextTick, onMounted, ref, watch } from 'vue';
 
 const isOpen = ref(false)
 const elementOpen = ref(null)
+const dropdown = ref(null)
 
 onMounted(() => {
   window.addEventListener('click', event => {
     if (!elementOpen.value.contains(event.target)) {
       isOpen.value = false
     }
+  })
+})
+
+watch(() => isOpen.value, () => {
+  nextTick(() => { isOpen.value && dropdown.value.focus()
+    // if (props.isOpen) {
+    //   mobileSidebar.value.focus()
+    // }
   })
 })
 
