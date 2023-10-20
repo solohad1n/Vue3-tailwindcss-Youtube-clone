@@ -1,36 +1,43 @@
 <template>
   <TheHeader @toggleSidebar="toggleSidebar"/>
-  <TheSidebarSmall :isOpen="sidebarState == 'compact'"/>
-  <TheSidebar :isOpen="sidebarState == 'normal'"/>
+  <TheSidebarCompact v-if="isCompactSidebarOpen"/>
+  <TheSidebar v-if="isSidebarOpen"/>
   <TheSidebarMobile :isOpen="isMobileSidebarOpen" @close="closeSidebarMobile"/>
-  <TheCategories :isSidebarOpen="sidebarState == 'normal'"/>
-  <TheVideos :isSidebarOpen="sidebarState == 'normal'"/>
+  <TheCategories :isSidebarOpen="isSidebarOpen"/>
+  <TheVideos :isSidebarOpen="isSidebarOpen"/>
 </template>
 
 <script setup>
 import TheHeader from './components/TheHeader/TheHeader.vue'
-import TheSidebarSmall from './components/TheSidebarSmall.vue'
+import TheSidebarCompact from './components/TheSidebarCompact.vue'
 import TheSidebar from './components/TheSidebar/TheSidebar.vue'
 import TheSidebarMobile from './components/TheSidebarMobile/TheSidebarMobile.vue'
 import TheCategories from './components/TheCategories/TheCategories.vue'
 import TheVideos from './components/TheVideos/TheVideos.vue'
 import { onMounted, ref } from 'vue'
 
+const isCompactSidebarActive = ref(false)
+const isCompactSidebarOpen = ref(false)
 const isMobileSidebarOpen = ref(false)
-const sidebarState = ref(null)
+const isSidebarOpen = ref(false)
 
 onMounted(() => {
   if(window.innerWidth >= 768 && window.innerWidth < 1280) {
-    sidebarState.value = 'compact'
+    isCompactSidebarActive.value = true
   }
   if(window.innerWidth >= 1280) {
-    sidebarState.value = 'normal'
+    isCompactSidebarActive.value = false
   }
+
+  onResize()
+
+  window.addEventListener('resize', onResize)
 })
 
 const toggleSidebar = () => {
   if(window.innerWidth >= 1280) {
-    sidebarState.value = sidebarState.value === 'normal' ? 'compact' : 'normal'
+    isCompactSidebarActive.value = !isCompactSidebarActive.value
+    onResize()
   } else {
     openMobileSidebar()
   }
@@ -42,6 +49,19 @@ const openMobileSidebar = () => {
 
 const closeSidebarMobile = () => {
   isMobileSidebarOpen.value = false
+}
+
+const onResize = () => {
+  if (window.innerWidth < 768) {
+    isCompactSidebarOpen.value = false
+    isSidebarOpen.value = false
+  } else if (window.innerWidth < 1280) {
+    isCompactSidebarOpen.value = true
+    isSidebarOpen.value = false
+  } else {
+    isCompactSidebarOpen.value = isCompactSidebarActive.value
+    isSidebarOpen.value = !isCompactSidebarActive.value
+  }
 }
 
 </script>

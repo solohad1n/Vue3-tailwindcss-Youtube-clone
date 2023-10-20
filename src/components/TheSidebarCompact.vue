@@ -108,13 +108,8 @@
 <script setup>
 import { computed } from "vue"
 
-const props = defineProps({
-  isOpen: Boolean
-})
-
 const classes = computed(() => {
   return [
-    props.isOpen ? 'md:block' : 'hidden',
       'min-h-screen',
       'overflow-auto',
       'fixed',

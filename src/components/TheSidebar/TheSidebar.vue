@@ -10,13 +10,8 @@
 import SidebarContent from '@/TheSidebar/SidebarContent.vue'
 import { computed } from 'vue'
 
-const props = defineProps({
-  isOpen: Boolean
-})
-
 const classes = computed(() => {
   return [
-    props.isOpen ? 'xl:block' : 'hidden',
       'w-64',
       'max-h-screen',
       'overflow-auto',
