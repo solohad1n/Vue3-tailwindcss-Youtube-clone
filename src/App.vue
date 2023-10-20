@@ -9,7 +9,7 @@
 
 <script setup>
 import TheHeader from './components/TheHeader/TheHeader.vue'
-import TheSidebarCompact from './components/TheSidebarCompact.vue'
+import TheSidebarCompact from './components/TheSidebarCompact/TheSidebarCompact.vue'
 import TheSidebar from './components/TheSidebar/TheSidebar.vue'
 import TheSidebarMobile from './components/TheSidebarMobile/TheSidebarMobile.vue'
 import TheCategories from './components/TheCategories/TheCategories.vue'
