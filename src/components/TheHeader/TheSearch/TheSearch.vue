@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full h-full">
+  <div class="mr-2 flex w-full h-full">
     <TheSearchInput />
     <TheSearchButton />
   </div>
