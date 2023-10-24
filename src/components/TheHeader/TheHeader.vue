@@ -8,6 +8,7 @@
         <LogoMain />
       </div>
     </div>
+    <TheSearchMobile/>
     <div
       class="hidden sm:flex items-center justify-end p-2.5 pl-8 md:pl-12 md:px-8 flex-1 lg:px-0 lg:w-1/2 max-w-screen-md"
     >
@@ -46,4 +47,5 @@ import ButtonLogin from '@/ButtonLogin/ButtonLogin.vue'
 import TheSearch from '@/TheHeader/TheSearch/TheSearch.vue'
 import BaseIcon from '@/Icon/BaseIcon.vue'
 import BaseTooltip from '@/BaseTooltip/BaseTooltip.vue'
+import TheSearchMobile from './TheSearch/TheSearchMobile.vue'
 </script>

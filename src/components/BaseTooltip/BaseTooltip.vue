@@ -17,17 +17,32 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 
 const isShown = ref(false)
 
 const props = defineProps({
   text: String,
-  top: Boolean
+  top: Boolean,
+  right: Boolean,
+  left: Boolean
 })
 
-const classes = computed(() => {
-  return [
+const getPositionClasses = () => {
+  const topClass = props.top ? 'bottom-12' : 'top-14' 
+
+  if (props.right) {
+    return [topClass, 'left-0']
+  }
+
+  if (props.left) {
+    return [topClass, 'right-0']
+  }
+
+  return [topClass, 'left-1/2', '-translate-x-1/2']
+}
+
+const classes = ref([
       'bg-gray-600',
       'bg-opacity-80',
       'rounded-sm',
@@ -36,10 +51,7 @@ const classes = computed(() => {
       'whitespace-nowrap',
       'p-2',
       'transform',
-      '-translate-x-1/2',
       'absolute',
-      'left-1/2',
-      props.top ? 'bottom-12' : 'top-14' 
-    ]
-})
+      ...getPositionClasses()
+    ])
 </script>

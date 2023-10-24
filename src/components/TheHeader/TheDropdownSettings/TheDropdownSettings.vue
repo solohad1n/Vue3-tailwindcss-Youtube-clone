@@ -47,7 +47,7 @@
 <script setup>
 import DropdownSettingsListItem from './DropdownSettingsListItem.vue';
 import BaseIcon from '@/Icon/BaseIcon.vue'
-import { nextTick, onMounted, ref, watch } from 'vue';
+import { computed, nextTick, onMounted, ref, watch } from 'vue';
 import BaseTooltip from '@/BaseTooltip/BaseTooltip.vue'
 
 const isOpen = ref(false)
