@@ -8,8 +8,9 @@
         <LogoMain />
       </div>
     </div>
-    <TheSearchMobile/>
+    <TheSearchMobile v-if="isMobileSearchShown" @close="closeMobileSearch"/>
     <div
+      v-else
       class="hidden sm:flex items-center justify-end p-2.5 pl-8 md:pl-12 md:px-8 flex-1 lg:px-0 lg:w-1/2 max-w-screen-md"
     >
       <TheSearch />
@@ -28,7 +29,7 @@
         </button>
       </BaseTooltip>
       <BaseTooltip text="Search">
-        <button class="sm:hidden p-2 focus:outline-none">
+        <button @click.stop="isMobileSearchActive = true" class="sm:hidden p-2 focus:outline-none">
           <BaseIcon name="search" class="w-5 h-5" />
         </button>
       </BaseTooltip>
@@ -48,4 +49,31 @@ import TheSearch from '@/TheHeader/TheSearch/TheSearch.vue'
 import BaseIcon from '@/Icon/BaseIcon.vue'
 import BaseTooltip from '@/BaseTooltip/BaseTooltip.vue'
 import TheSearchMobile from './TheSearch/TheSearchMobile.vue'
+import { computed, onMounted, ref } from 'vue'
+
+const isSmallScreen = ref(false)
+const isMobileSearchActive = ref(false)
+
+
+onMounted(() => {
+  onResize()
+  window.addEventListener('resize', onResize)
+})
+
+const onResize = () => {
+  if (window.innerWidth < 640) {
+      isSmallScreen.value = true
+      return
+    }
+    closeMobileSearch()
+    isSmallScreen.value = false
+}
+
+const closeMobileSearch = () => {
+  isMobileSearchActive.value = false
+}
+
+const isMobileSearchShown = computed(() => {
+  return isSmallScreen.value && isMobileSearchActive.value
+})
 </script>
