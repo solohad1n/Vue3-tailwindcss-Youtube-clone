@@ -14,7 +14,7 @@
       leave-to-class="transform opacity-0 scale-95"
     >
       <div
-        class="absolute top-9 -right-full sm:right-0 bg-white w-72 border border-t-0 outline-none"
+        :class="dropdownClasses"
         v-show="isOpen"
         @keydown.esc="isOpen = false"
         tabindex="-1"
@@ -117,6 +117,21 @@ const listItems = [
     withSubMenu: true
   }
 ]
+
+const dropdownClasses = computed(() => {
+  return [
+    'z-10',
+    'absolute',
+    'top-9',
+    '-right-full',
+    'sm:right-0',
+    'bg-white',
+    'w-72',
+    'border',
+    'border-t-0',
+    'focus:outline-none'
+  ]
+})
 </script>
 
 <style>

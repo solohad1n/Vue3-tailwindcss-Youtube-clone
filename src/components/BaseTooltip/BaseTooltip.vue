@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-    <div class="h-full" @mouseenter="toggle" @mouseleave="toggle">
+    <div class="flex items-center h-full" @mouseenter="isShown = true" @mouseleave="isShown = false" @click="isShown = false">
       <slot/>
     </div>
     <transition
@@ -22,12 +22,9 @@ import { computed, ref } from 'vue'
 const isShown = ref(false)
 
 const props = defineProps({
-  text: String
+  text: String,
+  top: Boolean
 })
-
-const toggle = () => {
-  isShown.value = !isShown.value
-}
 
 const classes = computed(() => {
   return [
@@ -38,11 +35,11 @@ const classes = computed(() => {
       'text-xs',
       'whitespace-nowrap',
       'p-2',
-      'absolute',
-      'top-14',
-      'left-1/2',
       'transform',
-      '-translate-x-1/2'
+      '-translate-x-1/2',
+      'absolute',
+      'left-1/2',
+      props.top ? 'bottom-12' : 'top-14' 
     ]
 })
 </script>

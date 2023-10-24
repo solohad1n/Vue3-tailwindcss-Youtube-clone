@@ -15,7 +15,7 @@
     >
       <div
         v-show="isOpen"
-        class="absolute top-9 right-0 sm:left-0 bg-white w-60 border border-t-0 outline-none"
+        :class="dropdownClasses"
         @keydown.esc="isOpen = false"
         tabindex="-1"
         ref="dropdown"
@@ -46,7 +46,7 @@
 <script setup>
 import DropdownAppsListItem from './DropdownAppsListItem.vue';
 import BaseIcon from '@/Icon/BaseIcon.vue'
-import { nextTick, onMounted, ref, watch } from 'vue';
+import { computed, nextTick, onMounted, ref, watch } from 'vue';
 import BaseTooltip from '@/BaseTooltip/BaseTooltip.vue'
 
 const isOpen = ref(false)
@@ -75,6 +75,21 @@ watch(() => isOpen.value, () => {
     //   mobileSidebar.value.focus()
     // }
   })
+})
+
+const dropdownClasses = computed(() => {
+  return [
+    'z-10',
+    'absolute',
+    'top-9',
+    'right-0',
+    'sm:left-0',
+    'bg-white',
+    'w-60',
+    'border',
+    'border-t-0',
+    'focus:outline-none'
+  ]
 })
 </script>
 
