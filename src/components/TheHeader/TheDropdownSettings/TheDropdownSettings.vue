@@ -25,7 +25,15 @@
         v-if="selectedMenu == 'main'"
         />
         <TheDropdownSettingsAppearance
-        v-if="selectedMenu == 'appearance'"
+        v-if="selectedMenu === 'appearance'"
+        @select-menu="showSelectedMenu"
+        />
+        <TheDropdownSettingsLanguage
+        v-if="selectedMenu === 'language'"
+        @select-menu="showSelectedMenu"
+        />
+        <TheDropdownSettingsLocation
+        v-if="selectedMenu === 'location'"
         @select-menu="showSelectedMenu"
         />
       </div>
@@ -39,6 +47,8 @@ import { computed, nextTick, onMounted, ref, watch } from 'vue';
 import BaseTooltip from '@/BaseTooltip/BaseTooltip.vue'
 import TheDropdownSettingsMain from './TheDropdownSettingsMain.vue'
 import TheDropdownSettingsAppearance from './TheDropdownSettingsAppearance.vue';
+import TheDropdownSettingsLanguage from './TheDropdownSettingsLanguage.vue';
+import TheDropdownSettingsLocation from './TheDropdownSettingsLocation.vue';
 
 const isOpen = ref(false)
 const elementOpen = ref(null)
@@ -63,6 +73,7 @@ watch(() => isOpen.value, () => {
 
 const showSelectedMenu = (selectedName) => {
   selectedMenu.value = selectedName
+  dropdown.value.focus()
 }
 
 const close = () => {
