@@ -1,7 +1,7 @@
 <template>
   <div class="relative" ref="elementOpen">
     <BaseTooltip text="Settings">
-      <button class="relative p-2 focus:outline-none" @click="isOpen = !isOpen">
+      <button class="relative p-2 focus:outline-none" @click="toggle">
         <BaseIcon name="dotsVertical" class="w-5 h-5"/>
       </button>
     </BaseTooltip>
@@ -16,7 +16,7 @@
       <div
         :class="dropdownClasses"
         v-show="isOpen"
-        @keydown.esc="isOpen = false"
+        @keydown.esc="close"
         tabindex="-1"
         ref="dropdown"
       >
@@ -26,6 +26,7 @@
         />
         <TheDropdownSettingsAppearance
         v-if="selectedMenu == 'appearance'"
+        @select-menu="showSelectedMenu"
         />
       </div>
     </transition>
@@ -47,7 +48,7 @@ const selectedMenu = ref('main')
 onMounted(() => {
   window.addEventListener('click', event => {
     if (!elementOpen.value.contains(event.target)) {
-      isOpen.value = false
+      close()
     }
   })
 })
@@ -62,6 +63,19 @@ watch(() => isOpen.value, () => {
 
 const showSelectedMenu = (selectedName) => {
   selectedMenu.value = selectedName
+}
+
+const close = () => {
+  isOpen.value = false
+  setTimeout(() => selectedMenu.value = 'main', 100)
+}
+
+const open = () => {
+  isOpen.value = true
+}
+
+const toggle = () => {
+  isOpen.value ? close() : open()
 }
 
 const dropdownClasses = computed(() => {
