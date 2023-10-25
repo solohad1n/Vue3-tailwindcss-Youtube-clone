@@ -12,7 +12,7 @@
     </p>
     <div class="text-gray-600 font-semibold flex items-center">
       <span class="uppercase mr-2">Activate restricted mode</span>
-      <input type="checkbox" :checked="selectedOptions.restrictedMode" @input="selectedOption"/>
+      <input type="checkbox" :checked="selectedOptions.restrictedMode.enabled" @input="selectedOption"/>
     </div>
   </section>
 </template>
@@ -24,9 +24,11 @@ const props = defineProps(['selectedOptions'])
 const emit = defineEmits(['selectOption'])
 
 const selectedOption = ($event) => {
+  const enabled = $event.target.checked
+  const value = { enabled, text: enabled ? 'On' : 'Off'  }
   emit('selectOption', {
     name: 'restrictedMode',
-    val: $event.target.checked
+    val: value
   })
 }
 </script>

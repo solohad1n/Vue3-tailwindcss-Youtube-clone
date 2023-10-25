@@ -12,8 +12,8 @@
         v-for="theme, i in themes"
         :key="theme"
         :label="theme"
-        :active="i == selectedOptions.themeId"
-        @click="selectedOption(i)"
+        :active="i == selectedOptions.theme.id"
+        @click="selectedOption({ id: i, text: theme })"
       />
     </ul>
   </section>
@@ -28,10 +28,10 @@ const emit = defineEmits(['selectOption'])
 
 const themes = [ 'Use device theme', 'Dark theme', 'Light theme']
 
-const selectedOption = (themeId) => {
+const selectedOption = (theme) => {
   emit('selectOption', {
-    name: 'themeId',
-    val: themeId
+    name: 'theme',
+    val: theme
   })
 }
 </script>

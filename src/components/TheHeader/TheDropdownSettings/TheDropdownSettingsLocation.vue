@@ -9,8 +9,8 @@
         v-for="(locationName, locationId) in locations"
         :key="locationId"
         :label="locationName"
-        :active="locationId === selectedOptions.locationId"
-        @click="selectedOption(locationId)"
+        :active="locationId === selectedOptions.location.id"
+        @click="selectedOption({ id: locationId, text: locationName})"
       />
     </ul>
   </section>
@@ -26,10 +26,10 @@ const emit = defineEmits(['selectOption'])
 
 const locations = ref(['United States', 'Russia', 'Bora Bora', 'Ukraine', 'Bora Bora', 'Bora Bora', 'Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora',])
 
-const selectedOption = (locationId) => {
+const selectedOption = (location) => {
   emit('selectOption', {
-    name: 'locationId',
-    val: locationId
+    name: 'location',
+    val: location
   })
 }
 </script>

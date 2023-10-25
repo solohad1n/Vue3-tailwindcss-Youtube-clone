@@ -9,8 +9,8 @@
         v-for="(languageName, languageId) in languages"
         :key="languageId"
         :label="languageName"
-        :active="languageId === selectedOptions.languageId"
-        @click="selectedOption(languageId)"
+        :active="languageId === selectedOptions.language.id"
+        @click="selectedOption({ id: languageId, text: languageName})"
       />
     </ul>
   </section>
@@ -26,10 +26,10 @@ const emit = defineEmits(['selectOption'])
 
 const languages = ref(['English', 'Russian'])
 
-const selectedOption = (languageId) => {
+const selectedOption = (language) => {
   emit('selectOption', {
-    name: 'languageId',
-    val: languageId
+    name: 'language',
+    val: language
   })
 }
 
