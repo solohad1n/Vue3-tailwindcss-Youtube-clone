@@ -4,7 +4,7 @@
     @back="$emit('select-menu', 'main')"
   />
   <section class="py-2">
-    <ul>
+    <ul class="max-h-96 overflow-auto">
       <DropdownSettingsListItem
         v-for="(locationName, locationId) in locations"
         :key="locationId"
@@ -22,6 +22,6 @@ import DropdownSettingsHeader from './DropdownSettingsHeader.vue'
 import DropdownSettingsListItem from './DropdownSettingsListItem.vue'
 
 const selectedLocationId = ref(0)
-const locations = ref(['United States', 'Russia', 'Bora Bora', 'Ukraine'])
+const locations = ref(['United States', 'Russia', 'Bora Bora', 'Ukraine', 'Bora Bora', 'Bora Bora', 'Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora',])
 
 </script>

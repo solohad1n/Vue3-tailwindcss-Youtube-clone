@@ -20,22 +20,7 @@
         tabindex="-1"
         ref="dropdown"
       >
-        <TheDropdownSettingsMain
-        @select-menu="showSelectedMenu"
-        v-if="selectedMenu == 'main'"
-        />
-        <TheDropdownSettingsAppearance
-        v-if="selectedMenu === 'appearance'"
-        @select-menu="showSelectedMenu"
-        />
-        <TheDropdownSettingsLanguage
-        v-if="selectedMenu === 'language'"
-        @select-menu="showSelectedMenu"
-        />
-        <TheDropdownSettingsLocation
-        v-if="selectedMenu === 'location'"
-        @select-menu="showSelectedMenu"
-        />
+        <component :is="menu" @select-menu="showSelectedMenu"/>
       </div>
     </transition>
   </div>
@@ -49,6 +34,7 @@ import TheDropdownSettingsMain from './TheDropdownSettingsMain.vue'
 import TheDropdownSettingsAppearance from './TheDropdownSettingsAppearance.vue';
 import TheDropdownSettingsLanguage from './TheDropdownSettingsLanguage.vue';
 import TheDropdownSettingsLocation from './TheDropdownSettingsLocation.vue';
+import TheDropdownSettingsRestrictedMode from './TheDropdownSettingsRestrictedMode.vue'
 
 const isOpen = ref(false)
 const elementOpen = ref(null)
@@ -102,6 +88,17 @@ const dropdownClasses = computed(() => {
     'border-t-0',
     'focus:outline-none'
   ]
+})
+
+const menu = computed(() => {
+  const menuComputedNames = {
+    main: TheDropdownSettingsMain,
+    appearance: TheDropdownSettingsAppearance,
+    language: TheDropdownSettingsLanguage,
+    location: TheDropdownSettingsLocation,
+    restricted_mode: TheDropdownSettingsRestrictedMode
+  }
+  return menuComputedNames[selectedMenu.value]
 })
 </script>
 

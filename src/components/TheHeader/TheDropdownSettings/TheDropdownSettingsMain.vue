@@ -7,15 +7,17 @@
       :label="listItem.label"
       :icon="listItem.icon"
       :withSubMenu="listItem.withSubMenu"
-      @click.stop="$emit('select-menu', listItem.id)"
+      @click.stop="selectMenu(listItem)"
       />
     </ul>
   </section>
   <section class="py-2">
     <ul>
       <DropdownSettingsListItem
+      :icon="listItems[8].icon"
       :label="listItems[8].label"
       :withSubMenu="listItems[8].withSubMenu"
+      @click.stop="selectMenu(listItems[8])"
       />
     </ul>
   </section>
@@ -80,4 +82,12 @@ const listItems = [
     withSubMenu: true
   }
 ]
+
+const emit = defineEmits(['select-menu'])
+
+const selectMenu = (listItem) => {
+  if (listItem.withSubMenu) {
+    emit('select-menu', listItem.id)
+  }
+}
 </script>

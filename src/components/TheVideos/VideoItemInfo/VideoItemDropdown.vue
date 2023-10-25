@@ -81,7 +81,7 @@ const getBottomClass = (event) => {
     if (window.innerHeight - clickCoordY < dropdownHeight) {
       return 'bottom-9'
     }
-    return 'buttom-auto'
+    return 'bottom-auto'
   }
 
 const getTopClass = (event) => {
