@@ -20,7 +20,12 @@
         tabindex="-1"
         ref="dropdown"
       >
-        <component :is="menu" @select-menu="showSelectedMenu"/>
+        <component
+        :is="menu"
+        @select-menu="showSelectedMenu"
+        :selectedOptions="selectedOptions"
+        @selectOption="selectOption"
+        />
       </div>
     </transition>
   </div>
@@ -40,6 +45,12 @@ const isOpen = ref(false)
 const elementOpen = ref(null)
 const dropdown = ref(null)
 const selectedMenu = ref('main')
+const selectedOptions = ref({
+    themeId: 0,
+    languageId: 0,
+    locationId: 0,
+    restrictedMode: false
+})
 
 onMounted(() => {
   window.addEventListener('click', event => {
@@ -73,6 +84,10 @@ const open = () => {
 
 const toggle = () => {
   isOpen.value ? close() : open()
+}
+
+const selectOption = (option) => {
+  selectedOptions.value[option.name] = option.val
 }
 
 const dropdownClasses = computed(() => {

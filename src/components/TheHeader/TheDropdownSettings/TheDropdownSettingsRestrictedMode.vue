@@ -12,11 +12,21 @@
     </p>
     <div class="text-gray-600 font-semibold flex items-center">
       <span class="uppercase mr-2">Activate restricted mode</span>
-      <input type="checkbox" />
+      <input type="checkbox" :checked="selectedOptions.restrictedMode" @input="selectedOption"/>
     </div>
   </section>
 </template>
 
 <script setup>
 import DropdownSettingsHeader from './DropdownSettingsHeader.vue'
+
+const props = defineProps(['selectedOptions'])
+const emit = defineEmits(['selectOption'])
+
+const selectedOption = ($event) => {
+  emit('selectOption', {
+    name: 'restrictedMode',
+    val: $event.target.checked
+  })
+}
 </script>

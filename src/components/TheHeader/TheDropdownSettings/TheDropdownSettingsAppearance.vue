@@ -12,8 +12,8 @@
         v-for="theme, i in themes"
         :key="theme"
         :label="theme"
-        :active="i == selectThemeId"
-        @click="selectThemeId = i"
+        :active="i == selectedOptions.themeId"
+        @click="selectedOption(i)"
       />
     </ul>
   </section>
@@ -22,8 +22,16 @@
 <script setup>
 import DropdownSettingsListItem from './DropdownSettingsListItem.vue'
 import DropdownSettingsHeader from './DropdownSettingsHeader.vue'
-import { ref } from 'vue'
 
-const selectThemeId = ref(0)
+const props = defineProps(['selectedOptions'])
+const emit = defineEmits(['selectOption'])
+
 const themes = [ 'Use device theme', 'Dark theme', 'Light theme']
+
+const selectedOption = (themeId) => {
+  emit('selectOption', {
+    name: 'themeId',
+    val: themeId
+  })
+}
 </script>

@@ -9,8 +9,8 @@
         v-for="(locationName, locationId) in locations"
         :key="locationId"
         :label="locationName"
-        :active="locationId === selectedLocationId"
-        @click="selectedLocationId = locationId"
+        :active="locationId === selectedOptions.locationId"
+        @click="selectedOption(locationId)"
       />
     </ul>
   </section>
@@ -21,7 +21,15 @@ import { ref } from 'vue'
 import DropdownSettingsHeader from './DropdownSettingsHeader.vue'
 import DropdownSettingsListItem from './DropdownSettingsListItem.vue'
 
-const selectedLocationId = ref(0)
+const props = defineProps(['selectedOptions'])
+const emit = defineEmits(['selectOption'])
+
 const locations = ref(['United States', 'Russia', 'Bora Bora', 'Ukraine', 'Bora Bora', 'Bora Bora', 'Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora',])
 
+const selectedOption = (locationId) => {
+  emit('selectOption', {
+    name: 'locationId',
+    val: locationId
+  })
+}
 </script>
