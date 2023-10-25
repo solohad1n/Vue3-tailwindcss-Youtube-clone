@@ -1,9 +1,11 @@
 <template>
-  <TheHeader @toggleSidebar="toggleSidebar"/>
+  <div class="fixed w-full z-30">
+    <TheHeader @toggleSidebar="toggleSidebar"/>
+    <TheCategories :isSidebarOpen="isSidebarOpen"/>
+  </div>
   <TheSidebarCompact v-if="isCompactSidebarOpen"/>
   <TheSidebar v-if="isSidebarOpen"/>
   <TheSidebarMobile :isOpen="isMobileSidebarOpen" @close="closeSidebarMobile"/>
-  <TheCategories :isSidebarOpen="isSidebarOpen"/>
   <TheVideos :isSidebarOpen="isSidebarOpen"/>
 </template>
 
