@@ -3,10 +3,13 @@
     <input
     type="text"
     placeholder="Search"
+    v-bind="$attrs"
     :class="classes"
     :value="query"
     @input="updateQuery($event.target.value)"
-    v-bind="$attrs"
+    @focus="setState(true)"
+    @blur="setState(false)"
+    @keyup.esc="setState(false)"
     />
     <button
       class="absolute top-0 right-0 h-full px-3 focus:outline-none"
@@ -23,7 +26,7 @@ import { onMounted, ref } from "vue";
 import BaseIcon from '@/Icon/BaseIcon.vue'
 
 const props = defineProps(['query'])
-const emit = defineEmits(['update:query'])
+const emit = defineEmits(['update:query', 'changeState'])
 
 defineOptions({
   inheritAttrs: false
@@ -33,6 +36,11 @@ const inputFocus = ref(null)
 
 const updateQuery = (query) => {
   emit('update:query', query)
+  setState(true)
+}
+
+const setState = (state) => {
+  emit('changeState', state)
 }
 
 const classes = [
