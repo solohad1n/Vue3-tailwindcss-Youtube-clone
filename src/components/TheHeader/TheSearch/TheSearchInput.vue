@@ -1,66 +1,110 @@
 <template>
   <div class="relative w-full">
     <input
-    ref="inputFocus"
-    type="text"
-    placeholder="Search"
-    :class="classes"
-    :value="query"
-    @input="updateQuery($event.target.value)"
-    @focus="setState(true)"
-    @keyup.esc="setState(false)"
-    @keydown.enter="handleEnter"
+      type="text"
+      placeholder="Search"
+      ref="input"
+      :class="classes"
+      :value="query"
+      @input="updateQuery($event.target.value)"
+      @focus="setState(true)"
+      @click.stop="setState(true)"
+      @keyup.esc="handleEsc"
+      @keydown.enter="handleEnter"
     />
     <button
       class="absolute top-0 right-0 h-full px-3 focus:outline-none"
       v-show="query"
-      @click="updateQuery('')"
-      >
+      @click="clear"
+    >
       <BaseIcon name="x" class="w-5 w-5" />
     </button>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
 import BaseIcon from '@/Icon/BaseIcon.vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 
-const props = defineProps(['query'])
-const emit = defineEmits(['update:query', 'changeState'])
+const props = defineProps(['query', 'hasResults'])
+const emit = defineEmits(['update:query', 'change-state', 'enter'])
 
-const inputFocus = ref(null)
+const isActive = ref(false)
+const input = ref(null)
+const classes = [
+        'w-full',
+        'h-full',
+        'px-3',
+        'shadow-inner',
+        'rounded-bl-sm',
+        'rounded-tl-sm',
+        'border',
+        'border-gray-300',
+        'focus:border-blue-700',
+        'focus:outline-none'
+      ]
 
-const handleEnter = () => {
-  setState(false)
-  inputFocus.value.blur()
-  emit('enter')
+onMounted(() => {
+  if (window.innerWidth < 640) {
+      input.value.focus()
+    }
+
+  document.addEventListener('keydown', onKeydown)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('keydown', onKeydown)
+})
+
+const onKeydown = (event) => {
+  const isInputFocused = input.value === document.activeElement
+
+  if (event.code === 'Slash' && !isInputFocused) {
+    event.preventDefault()
+
+    input.value.focus()
+  }
 }
 
 const updateQuery = (query) => {
   emit('update:query', query)
-  setState(true)
+
+  setState(isActive.value)
 }
 
-const setState = (state) => {
-  emit('changeState', state)
+const setState = (a) => {
+  isActive.value = a
+
+  emit('change-state', a)
 }
 
-const classes = [
-  'w-full',
-  'h-full',
-  'px-3',
-  'shadow-inner',
-  'rounded-bl-sm',
-  'rounded-tl-sm',
-  'border',
-  'border-gray-300',
-  'focus:border-blue-700',
-  'focus:outline-none'
-]
+const handleEsc = () => {
+  removeSelection()
 
-onMounted(() => {
-  if(window.innerWidth < 640) {
-    inputFocus.value.focus()
+  if (isActive.value && props.hasResults) {
+    setState(false)
+  } else {
+    input.value.blur()
   }
-})
+}
+
+const handleEnter = () => {
+  setState(false)
+
+  input.value.blur()
+
+  emit('enter')
+}
+
+const removeSelection = () => {
+  const end = input.value.length
+
+  input.value.setSelectionRange(end, end)
+}
+
+const clear = () => {
+  input.value.focus()
+
+  updateQuery('')
+}
 </script>

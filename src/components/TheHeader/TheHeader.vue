@@ -5,26 +5,23 @@
         'lg:w-1/4',
         'flex',
         isMobileSearchShown ? 'opacity-0' : 'opacity-100'
-      ]">
+      ]"
+    >
       <div class="flex items-center xl:w-64 xl:bg-white pl-4">
-        <button @click="$emit('toggleSidebar')" class="mr-3 sm:ml-2 sm:mr-6 focus:outline-none">
-          <BaseIcon name="menu"/>
+        <button
+          @click="$emit('toggleSidebar')"
+          class="mr-3 sm:ml-2 sm:mr-6 focus:outline-none"
+        >
+          <BaseIcon name="menu" />
         </button>
         <LogoMain />
       </div>
     </div>
-    <TheSearchMobile v-if="isMobileSearchShown" @close="closeMobileSearch"/>
-    <div
-      v-else
-      class="hidden sm:flex items-center justify-end p-2.5 pl-8 md:pl-12 md:px-8 flex-1 lg:px-0 lg:w-1/2 max-w-screen-md"
-    >
-      <TheSearch />
-      <BaseTooltip text="Search with your voice">
-        <button class="p-2 focus:outline-none">
-          <BaseIcon name="microphone" class="w-5 h-5" />
-        </button>
-      </BaseTooltip>
-    </div>
+    <TheSearchWrapper
+      v-show="isSearchShown"
+      :is-small-screen="isSmallScreen"
+      @close="closeMobileSearch"
+    />
     <div
       :class="[
         'flex',
@@ -43,61 +40,88 @@
         </button>
       </BaseTooltip>
       <BaseTooltip text="Search">
-        <button @click.stop="isMobileSearchActive = true" class="sm:hidden p-2 focus:outline-none">
+        <button
+          @click.stop="isMobileSearchActive = true"
+          class="sm:hidden p-2 focus:outline-none"
+        >
           <BaseIcon name="search" class="w-5 h-5" />
         </button>
       </BaseTooltip>
-      <TheDropdownApps/>
-      <TheDropdownSettings/>
-      <ButtonLogin/>
+      <TheDropdownApps />
+      <TheDropdownSettings />
+      <ButtonLogin />
     </div>
   </header>
 </template>
 
-<script setup>
-import TheDropdownApps from '@/TheHeader/TheDropdownApps/TheDropdownApps.vue'
-import TheDropdownSettings from '@/TheHeader/TheDropdownSettings/TheDropdownSettings.vue'
-import LogoMain from '@/TheHeader/LogoMain.vue'
-import ButtonLogin from '@/ButtonLogin/ButtonLogin.vue'
-import TheSearch from '@/TheHeader/TheSearch/TheSearch.vue'
+<script>
 import BaseIcon from '@/Icon/BaseIcon.vue'
 import BaseTooltip from '@/BaseTooltip/BaseTooltip.vue'
-import TheSearchMobile from './TheSearch/TheSearchMobile.vue'
-import { computed, onMounted, ref } from 'vue'
+import LogoMain from './LogoMain.vue'
+import ButtonLogin from '@/ButtonLogin/ButtonLogin.vue'
+import TheSearchWrapper from '@/TheHeader/TheSearch/TheSearchWrapper.vue'
+import TheDropdownApps from '@/TheHeader/TheDropdownApps/TheDropdownApps.vue'
+import TheDropdownSettings from '@/TheHeader/TheDropdownSettings/TheDropdownSettings.vue'
 
-const isSmallScreen = ref(false)
-const isMobileSearchActive = ref(false)
+export default {
+  components: {
+    BaseIcon,
+    BaseTooltip,
+    LogoMain,
+    ButtonLogin,
+    TheSearchWrapper,
+    TheDropdownApps,
+    TheDropdownSettings
+  },
 
+  emits: {
+    toggleSidebar: null
+  },
 
-onMounted(() => {
-  onResize()
-  window.addEventListener('resize', onResize)
-})
-
-const onResize = () => {
-  if (window.innerWidth < 640) {
-      isSmallScreen.value = true
-      return
+  data () {
+    return {
+      isSmallScreen: false,
+      isMobileSearchActive: false,
+      classes: [
+        'flex',
+        'justify-between',
+        'w-full',
+        'bg-white',
+        'bg-opacity-95'
+      ]
     }
-    closeMobileSearch()
-    isSmallScreen.value = false
+  },
+
+  computed: {
+    isSearchShown () {
+      return this.isMobileSearchShown || !this.isSmallScreen
+    },
+
+    isMobileSearchShown () {
+      return this.isSmallScreen && this.isMobileSearchActive
+    }
+  },
+
+  mounted () {
+    this.onResize()
+
+    window.addEventListener('resize', this.onResize)
+  },
+
+  methods: {
+    onResize () {
+      if (window.innerWidth < 640) {
+        this.isSmallScreen = true
+        return
+      }
+
+      this.closeMobileSearch()
+      this.isSmallScreen = false
+    },
+
+    closeMobileSearch () {
+      this.isMobileSearchActive = false
+    }
+  }
 }
-
-const closeMobileSearch = () => {
-  isMobileSearchActive.value = false
-}
-
-const isMobileSearchShown = computed(() => {
-  return isSmallScreen.value && isMobileSearchActive.value
-})
-
-const classes = computed(()=> {
-  return [
-    'flex',
-    'justify-between',
-    'w-full',
-    'bg-white',
-    'bg-opacity-95'
-  ]
-})
 </script>
