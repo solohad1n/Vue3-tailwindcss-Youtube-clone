@@ -54,7 +54,7 @@
   </header>
 </template>
 
-<script>
+<script setup>
 import BaseIcon from '@/Icon/BaseIcon.vue'
 import BaseTooltip from '@/BaseTooltip/BaseTooltip.vue'
 import LogoMain from './LogoMain.vue'
@@ -62,66 +62,45 @@ import ButtonLogin from '@/ButtonLogin/ButtonLogin.vue'
 import TheSearchWrapper from '@/TheHeader/TheSearch/TheSearchWrapper.vue'
 import TheDropdownApps from '@/TheHeader/TheDropdownApps/TheDropdownApps.vue'
 import TheDropdownSettings from '@/TheHeader/TheDropdownSettings/TheDropdownSettings.vue'
+import { computed, onMounted, ref } from 'vue'
 
-export default {
-  components: {
-    BaseIcon,
-    BaseTooltip,
-    LogoMain,
-    ButtonLogin,
-    TheSearchWrapper,
-    TheDropdownApps,
-    TheDropdownSettings
-  },
 
-  emits: {
-    toggleSidebar: null
-  },
+const isSmallScreen = ref(false)
+const isMobileSearchActive = ref(false)
+const classes = [
+  'flex',
+  'justify-between',
+  'w-full',
+  'bg-white',
+  'bg-opacity-95'
+]
 
-  data () {
-    return {
-      isSmallScreen: false,
-      isMobileSearchActive: false,
-      classes: [
-        'flex',
-        'justify-between',
-        'w-full',
-        'bg-white',
-        'bg-opacity-95'
-      ]
-    }
-  },
+const isSearchShown = computed(() => {
+  return isMobileSearchShown.value || !isSmallScreen.value
+})
 
-  computed: {
-    isSearchShown () {
-      return this.isMobileSearchShown || !this.isSmallScreen
-    },
+const isMobileSearchShown = computed(() => {
+  return isSmallScreen.value && isMobileSearchActive.value
+})
 
-    isMobileSearchShown () {
-      return this.isSmallScreen && this.isMobileSearchActive
-    }
-  },
+onMounted(() => {
+  onResize()
 
-  mounted () {
-    this.onResize()
+  window.addEventListener('resize', onResize)
+})
 
-    window.addEventListener('resize', this.onResize)
-  },
-
-  methods: {
-    onResize () {
-      if (window.innerWidth < 640) {
-        this.isSmallScreen = true
-        return
-      }
-
-      this.closeMobileSearch()
-      this.isSmallScreen = false
-    },
-
-    closeMobileSearch () {
-      this.isMobileSearchActive = false
-    }
+const onResize = () => {
+  if (window.innerWidth < 640) {
+    isSmallScreen.value = true
+    return
   }
+
+  this.closeMobileSearch()
+  isSmallScreen.value = false
 }
+
+const closeMobileSearch = () => {
+  isMobileSearchActive.value = false
+}
+
 </script>
