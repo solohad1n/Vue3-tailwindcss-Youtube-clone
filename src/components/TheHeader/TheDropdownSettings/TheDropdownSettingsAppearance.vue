@@ -22,16 +22,16 @@
 <script setup>
 import DropdownSettingsListItem from './DropdownSettingsListItem.vue'
 import DropdownSettingsHeader from './DropdownSettingsHeader.vue'
+import useDropdownSubmenu from '../../../composables/useDropdownSubmenu.js'
 
 const props = defineProps(['selectedOptions'])
 const emit = defineEmits(['selectOption'])
 
 const themes = [ 'Use device theme', 'Dark theme', 'Light theme']
+const optionName = 'theme'
 
-const selectedOption = (theme) => {
-  emit('selectOption', {
-    name: 'theme',
-    val: theme
-  })
+const selectedOption = (option) => {
+  const { selectedOption } = useDropdownSubmenu()
+  selectedOption(option, optionName, emit)
 }
 </script>

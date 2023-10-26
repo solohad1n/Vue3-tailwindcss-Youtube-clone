@@ -20,16 +20,16 @@
 import { ref } from 'vue'
 import DropdownSettingsHeader from './DropdownSettingsHeader.vue'
 import DropdownSettingsListItem from './DropdownSettingsListItem.vue'
+import useDropdownSubmenu from '../../../composables/useDropdownSubmenu.js'
 
 const props = defineProps(['selectedOptions'])
 const emit = defineEmits(['selectOption'])
 
 const locations = ref(['United States', 'Russia', 'Bora Bora', 'Ukraine', 'Bora Bora', 'Bora Bora', 'Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora', 'Bora Bora',])
+const optionName = 'location'
 
-const selectedOption = (location) => {
-  emit('selectOption', {
-    name: 'location',
-    val: location
-  })
+const selectedOption = (option) => {
+  const { selectedOption } = useDropdownSubmenu()
+  selectedOption(option, optionName, emit)
 }
 </script>
