@@ -24,7 +24,7 @@
 
 <script setup>
 import BaseIcon from '@/Icon/BaseIcon.vue'
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { inject, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 const props = defineProps(['query', 'hasResults'])
 const emit = defineEmits(['update:query', 'change-state', 'enter'])
@@ -44,12 +44,21 @@ const classes = [
         'focus:outline-none'
       ]
 
+const isMobileSearchActive = inject('isMobileSearchActive')
+
 onMounted(() => {
   if (window.innerWidth < 640) {
       input.value.focus()
     }
-
   document.addEventListener('keydown', onKeydown)
+})
+
+watch(() => isMobileSearchActive.value, () => {
+  nextTick(() => {
+    if(isMobileSearchActive.value) {
+      input.value.focus()
+    }
+  })
 })
 
 onBeforeUnmount(() => {

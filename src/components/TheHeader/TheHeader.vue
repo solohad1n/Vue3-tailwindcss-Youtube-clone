@@ -62,8 +62,7 @@ import ButtonLogin from '@/ButtonLogin/ButtonLogin.vue'
 import TheSearchWrapper from '@/TheHeader/TheSearch/TheSearchWrapper.vue'
 import TheDropdownApps from '@/TheHeader/TheDropdownApps/TheDropdownApps.vue'
 import TheDropdownSettings from '@/TheHeader/TheDropdownSettings/TheDropdownSettings.vue'
-import { computed, onMounted, ref } from 'vue'
-
+import { computed, onMounted, provide, ref } from 'vue'
 
 const isSmallScreen = ref(false)
 const isMobileSearchActive = ref(false)
@@ -74,6 +73,28 @@ const classes = [
   'bg-white',
   'bg-opacity-95'
 ]
+provide('isMobileSearchActive', isMobileSearchActive)
+
+onMounted(() => {
+  onResize()
+  window.addEventListener('resize', onResize)
+})
+
+
+const onResize = () => {
+  if (window.innerWidth < 640) {
+    isSmallScreen.value = true
+    return
+  }
+
+  closeMobileSearch()
+  isSmallScreen.value = false
+}
+
+const closeMobileSearch = () => {
+  isMobileSearchActive.value = false
+}
+
 
 const isSearchShown = computed(() => {
   return isMobileSearchShown.value || !isSmallScreen.value
@@ -82,25 +103,5 @@ const isSearchShown = computed(() => {
 const isMobileSearchShown = computed(() => {
   return isSmallScreen.value && isMobileSearchActive.value
 })
-
-onMounted(() => {
-  onResize()
-
-  window.addEventListener('resize', onResize)
-})
-
-const onResize = () => {
-  if (window.innerWidth < 640) {
-    isSmallScreen.value = true
-    return
-  }
-
-  this.closeMobileSearch()
-  isSmallScreen.value = false
-}
-
-const closeMobileSearch = () => {
-  isMobileSearchActive.value = false
-}
 
 </script>
