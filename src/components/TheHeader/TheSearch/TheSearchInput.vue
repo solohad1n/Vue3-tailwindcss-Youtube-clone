@@ -6,6 +6,7 @@
     :class="classes"
     :value="query"
     @input="updateQuery($event.target.value)"
+    v-bind="$attrs"
     />
     <button
       class="absolute top-0 right-0 h-full px-3 focus:outline-none"
@@ -23,6 +24,10 @@ import BaseIcon from '@/Icon/BaseIcon.vue'
 
 const props = defineProps(['query'])
 const emit = defineEmits(['update:query'])
+
+defineOptions({
+  inheritAttrs: false
+})
 
 const inputFocus = ref(null)
 
