@@ -1,15 +1,15 @@
 <template>
   <div class="relative w-full">
     <input
+    ref="inputFocus"
     type="text"
     placeholder="Search"
-    v-bind="$attrs"
     :class="classes"
     :value="query"
     @input="updateQuery($event.target.value)"
     @focus="setState(true)"
-    @blur="setState(false)"
     @keyup.esc="setState(false)"
+    @keydown.enter="handleEnter"
     />
     <button
       class="absolute top-0 right-0 h-full px-3 focus:outline-none"
@@ -28,11 +28,13 @@ import BaseIcon from '@/Icon/BaseIcon.vue'
 const props = defineProps(['query'])
 const emit = defineEmits(['update:query', 'changeState'])
 
-defineOptions({
-  inheritAttrs: false
-})
-
 const inputFocus = ref(null)
+
+const handleEnter = () => {
+  setState(false)
+  inputFocus.value.blur()
+  emit('enter')
+}
 
 const updateQuery = (query) => {
   emit('update:query', query)
