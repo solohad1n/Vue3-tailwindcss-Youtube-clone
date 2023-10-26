@@ -1,8 +1,8 @@
 <template>
   <div class="mr-2 flex w-full">
     <div class="relative flex w-full">
-      <TheSearchInput />
-      <TheSearchResults :results="keywords" />
+      <TheSearchInput v-model="query"/>
+      <TheSearchResults v-show="query" :results="results" />
     </div>
     <TheSearchButton />
   </div>
@@ -11,6 +11,9 @@
 import TheSearchInput from './TheSearchInput.vue';
 import TheSearchButton from './TheSearchButton.vue'
 import TheSearchResults from './TheSearchResults.vue'
+import { computed, ref } from 'vue';
+
+const query = ref('')
 
 const keywords = [
         'new york giants',
@@ -28,4 +31,10 @@ const keywords = [
         'new york giants live stream',
         'new york accent'
       ]
+
+const results = computed(() => {
+  return keywords.filter(result => {
+    return result.includes(query.value)
+  })
+})
 </script>

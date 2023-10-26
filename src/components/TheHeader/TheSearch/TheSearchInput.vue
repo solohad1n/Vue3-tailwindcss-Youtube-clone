@@ -1,7 +1,17 @@
 <template>
   <div class="relative w-full">
-    <input type="text" placeholder="Search" :class="classes" />
-    <button class="absolute top-0 right-0 h-full px-3 focus:outline-none">
+    <input
+    type="text"
+    placeholder="Search"
+    :class="classes"
+    :value="modelValue"
+    @input="$emit('update:modelValue', $event.target.value)"
+    />
+    <button
+      class="absolute top-0 right-0 h-full px-3 focus:outline-none"
+      v-show="modelValue"
+      @click="$emit('update:modelValue', '')"
+      >
       <BaseIcon name="x" class="w-5 w-5" />
     </button>
   </div>
@@ -10,6 +20,9 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import BaseIcon from '@/Icon/BaseIcon.vue'
+
+const props = defineProps(['modelValue'])
+const emit = defineEmits(['update:modelValue'])
 
 const inputFocus = ref(null)
 
