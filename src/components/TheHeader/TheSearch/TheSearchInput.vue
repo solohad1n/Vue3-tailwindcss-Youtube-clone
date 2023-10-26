@@ -4,13 +4,13 @@
     type="text"
     placeholder="Search"
     :class="classes"
-    :value="modelValue"
-    @input="$emit('update:modelValue', $event.target.value)"
+    :value="query"
+    @input="updateQuery($event.target.value)"
     />
     <button
       class="absolute top-0 right-0 h-full px-3 focus:outline-none"
-      v-show="modelValue"
-      @click="$emit('update:modelValue', '')"
+      v-show="query"
+      @click="updateQuery('')"
       >
       <BaseIcon name="x" class="w-5 w-5" />
     </button>
@@ -21,10 +21,14 @@
 import { onMounted, ref } from "vue";
 import BaseIcon from '@/Icon/BaseIcon.vue'
 
-const props = defineProps(['modelValue'])
-const emit = defineEmits(['update:modelValue'])
+const props = defineProps(['query'])
+const emit = defineEmits(['update:query'])
 
 const inputFocus = ref(null)
+
+const updateQuery = (query) => {
+  emit('update:query', query)
+}
 
 const classes = [
   'w-full',

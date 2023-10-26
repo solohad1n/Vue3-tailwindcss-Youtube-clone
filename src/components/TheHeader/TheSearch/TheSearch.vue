@@ -1,8 +1,8 @@
 <template>
   <div class="mr-2 flex w-full">
     <div class="relative flex w-full">
-      <TheSearchInput v-model="query"/>
-      <TheSearchResults v-show="query" :results="results" />
+      <TheSearchInput v-model:query="query"/>
+      <TheSearchResults v-show="results.length" :results="results" />
     </div>
     <TheSearchButton />
   </div>
@@ -33,8 +33,15 @@ const keywords = [
       ]
 
 const results = computed(() => {
+  if (!query.value) {
+    return []
+  }
   return keywords.filter(result => {
-    return result.includes(query.value)
+    return result.includes(trimmedQuery.value)
   })
+})
+
+const trimmedQuery = computed(() => {
+  return query.value.replace(/\s+/g, ' ').trim()
 })
 </script>
