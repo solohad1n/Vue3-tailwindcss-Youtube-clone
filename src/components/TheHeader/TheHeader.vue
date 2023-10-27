@@ -57,9 +57,7 @@
     </div>
   </header>
   <teleport to="body">
-    <BaseModal v-if="isVoiceModalOpen" @close="isVoiceModalOpen = false">
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam ipsam expedita iure sequi incidunt sint totam ducimus dolorum, quo aperiam inventore voluptatibus exercitationem? Id rerum, expedita itaque maxime adipisci tenetur.
-    </BaseModal>
+    <TheModalSearchWithVoice v-if="isVoiceModalOpen" @close="isVoiceModalOpen = false"/>
   </teleport>
 </template>
 
@@ -71,7 +69,7 @@ import ButtonLogin from '@/ButtonLogin/ButtonLogin.vue'
 import TheSearchWrapper from '@/TheHeader/TheSearch/TheSearchWrapper.vue'
 import TheDropdownApps from '@/TheHeader/TheDropdownApps/TheDropdownApps.vue'
 import TheDropdownSettings from '@/TheHeader/TheDropdownSettings/TheDropdownSettings.vue'
-import BaseModal from '@/BaseModal/BaseModal.vue'
+import TheModalSearchWithVoice from '@/TheModals/TheModalSearchWithVoice.vue'
 import { computed, onMounted, provide, ref } from 'vue'
 
 const isSmallScreen = ref(false)
