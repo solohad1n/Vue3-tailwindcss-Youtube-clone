@@ -125,9 +125,9 @@ const updateQueryWithSearchResult = () => {
 }
 
 const selectSearchResult = () => {
-  query.value = activeSearchResultId.value
-    ? results.value[activeSearchResultId.value]
-    : query.value
+  query.value = activeSearchResultId.value == null
+    ? query.value
+    : results.value[activeSearchResultId.value]
 
   toggleSearchResults(false)
 

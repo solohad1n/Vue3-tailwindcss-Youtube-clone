@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const isShown = ref(false)
 
@@ -42,7 +42,8 @@ const getPositionClasses = () => {
   return [topClass, 'left-1/2', '-translate-x-1/2']
 }
 
-const classes = ref([
+const classes = computed(() => {
+  return [
       'bg-gray-600',
       'bg-opacity-80',
       'rounded-sm',
@@ -53,5 +54,6 @@ const classes = ref([
       'transform',
       'absolute',
       ...getPositionClasses()
-    ])
+    ]
+})
 </script>

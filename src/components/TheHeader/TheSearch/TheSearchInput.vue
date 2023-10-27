@@ -24,7 +24,7 @@
 
 <script setup>
 import BaseIcon from '@/Icon/BaseIcon.vue'
-import { inject, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { inject, nextTick, onMounted, ref, watch } from 'vue'
 
 const props = defineProps(['query', 'hasResults'])
 const emit = defineEmits(['update:query', 'change-state', 'enter'])
@@ -61,9 +61,6 @@ watch(() => isMobileSearchActive.value, () => {
   })
 })
 
-onBeforeUnmount(() => {
-  document.removeEventListener('keydown', onKeydown)
-})
 
 const onKeydown = (event) => {
   const isInputFocused = input.value === document.activeElement
