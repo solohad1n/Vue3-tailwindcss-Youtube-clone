@@ -14,13 +14,28 @@
         </span>
       </li>
     </ul>
-    <a href="#" :class="reportLinkClasses">Report search predictions</a>
+    <a
+    href="#"
+    :class="reportLinkClasses"
+    @click="isVoiceModalOpen = true"
+    >Report search predictions</a>
+    <teleport to="body">
+      <TheModalSearchPredictions
+      v-if="isVoiceModalOpen"
+      @close="isVoiceModalOpen = false"
+      :search-predictions="results"
+      />
+    </teleport>
   </div>
 </template>
 
 <script setup>
+import TheModalSearchPredictions from '@/TheModals/TheModalSearchPredictions/TheModalSearchPredictions.vue'
+import { ref } from 'vue'
+
 const props = defineProps(['results', 'activeResultId'])
 
+const isVoiceModalOpen = ref(false)
 const classes = [
         'absolute',
         'top-full',

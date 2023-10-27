@@ -1,5 +1,5 @@
 <template>
-  <BaseModal>
+  <BaseModal withCloseButton>
     <p class="text-2xl mb-52">{{ text }}</p>
     <div class="flex justify-center items-center">
       <span v-show="isListening" :class="buttonAnimationClasses" />
